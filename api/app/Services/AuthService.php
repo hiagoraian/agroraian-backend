@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -19,5 +20,10 @@ class AuthService
         throw ValidationException::withMessages([
             'cpf' => ['CPF ou senha inválidos.'],
         ]);
+    }
+
+    public function logout(Request $request): bool
+    {
+        return $request->user()->currentAccessToken()->delete();
     }
 }
